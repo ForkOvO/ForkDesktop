@@ -79,6 +79,7 @@ void Notification::showNotification(QString title, QString content, int ms, QWid
     Notification *notification = new Notification(theme, parent);
     notification->setText(title, content);
     notification->show();
+    if (ms <= 0) return;
     notification->startDestroyTimer(ms);
 }
 
