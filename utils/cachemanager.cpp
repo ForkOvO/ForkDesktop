@@ -6,6 +6,7 @@
 
 std::atomic<CacheManager*> CacheManager::m_instance = nullptr;
 std::mutex CacheManager::m_mutex;
+QString CacheManager::m_cacheDirPath = "./";
 
 CacheManager *CacheManager::instance()
 {
