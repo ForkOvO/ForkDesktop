@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/icon.png</file>
+        <file>res/ten_OvO_white.png</file>
+        <file>res/ten_OvO_black.png</file>
+        <file>res/theme_white.png</file>
+        <file>res/theme_black.png</file>
+        <file>res/github_white.png</file>
+        <file>res/github_black.png</file>
+        <file>res/bilibili_white.png</file>
+        <file>res/bilibili_black.png</file>
+        <file>res/search_white.png</file>
+        <file>res/search_black.png</file>
+    </qresource>
+</RCC>

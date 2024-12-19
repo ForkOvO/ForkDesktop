@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qss/centralwidget.qss</file>
+        <file>qss/background.qss</file>
+        <file>qss/searchbox.qss</file>
+        <file>qss/notification.qss</file>
+    </qresource>
+</RCC>

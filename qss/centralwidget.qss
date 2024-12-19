@@ -1,0 +1,20 @@
+
+/* 折叠按钮 */
+QPushButton#foldSwitchBtn{
+    border-image: url(:/res/ten_OvO_{{theme}}.png);
+}
+
+/* 主题切换按钮 */
+QPushButton#themeSwitchBtn{
+    border-image: url(:/res/theme_{{theme}}.png);
+}
+
+/* GitHub按钮 */
+QPushButton#githubBtn{
+    border-image: url(:/res/github_{{theme}}.png);
+}
+
+/* bilibili按钮 */
+QPushButton#bilibiliBtn{
+    border-image: url(:/res/bilibili_{{theme}}.png);
+}

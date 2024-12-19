@@ -1,0 +1,33 @@
+
+QLineEdit#searchLineEdit{
+    border-radius: 5px;
+    border: 1px solid {{theme}};
+    padding: 5px;
+    background-color: transparent;
+    color: {{theme}};
+    font-size: 18px;
+}
+
+/* 搜索按钮 */
+QPushButton#searchBtn{
+    border-image: url(:/res/search_{{theme}}.png);
+}
+
+/* 搜索结果 */
+QListWidget{
+    outline: none;
+    background-color: transparent;
+}
+
+QListWidget::item{
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid {{theme}};
+    background-color: transparent;
+    color: {{theme}};
+    font-size: 18px;
+}
+
+QListWidget::item:hover {
+    background-color: #40808080;
+}

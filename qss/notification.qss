@@ -1,0 +1,28 @@
+
+/* 通知窗口 */
+Notification{
+    background-color: {{back_color}};
+    border: 1px solid {{content_color}};
+    border-radius: 5px;
+}
+
+QLabel#title{
+    color: {{content_color}};
+    font-size: 15px;
+}
+
+QPushButton#closeBtn{
+    background-color: {{back_color}};
+    border: 1px solid {{content_color}};
+    border-radius: 5px;
+    color: {{content_color}};
+    font-size: 12px;
+    font-weight: bold;
+}
+
+QTextEdit#content{
+    background-color: {{back_color}};
+    border: 0px;
+    color: {{content_color}};
+    font-size: 12px;
+}
