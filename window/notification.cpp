@@ -75,7 +75,6 @@ Notification::~Notification()
 
 void Notification::showNotification(QString title, QString content, int ms, QWidget *parent, QString theme)
 {
-    if (title == "") title = "Fork桌面"; // 默认标题
     Notification *notification = new Notification(theme, parent);
     notification->setText(title, content);
     notification->show();
