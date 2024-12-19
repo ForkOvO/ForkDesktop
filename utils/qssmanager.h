@@ -13,6 +13,8 @@ struct QSSData
     QString light;
 };
 
+class CacheManager;
+
 class QSSManager : public QObject
 {
     Q_OBJECT
@@ -32,8 +34,9 @@ private:
     explicit QSSManager() = default;
     static std::atomic<QSSManager*> m_instance; // 单例实例指针
     static std::mutex m_mutex; // 保证线程安全
-
-    bool m_isDark = true; // 默认为暗色模式
+    static CacheManager* m_cacheManager; // 缓存管理器
+    static bool m_isDark; // 是否为暗色模式
+    
     QMap<QWidget*, QSSData> m_qssData;
 };
 

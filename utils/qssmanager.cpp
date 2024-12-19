@@ -1,9 +1,12 @@
 #include "qssmanager.h"
+#include "cachemanager.h"
 
 #include <QWidget>
 
 std::atomic<QSSManager*> QSSManager::m_instance = nullptr;
 std::mutex QSSManager::m_mutex;
+CacheManager* QSSManager::m_cacheManager = nullptr;
+bool QSSManager::m_isDark = true;
 
 QSSManager *QSSManager::instance()
 {
@@ -16,9 +19,14 @@ QSSManager *QSSManager::instance()
         {
             instance = new QSSManager;
             m_instance.store(instance); // 存储单例
+            m_cacheManager = CacheManager::instance(); // 创建缓存管理器
+            m_cacheManager->loadCache("theme.json");
+            if (m_cacheManager->getCache("theme.json", "theme") != "dark")
+            {
+                m_isDark = false;
+            }
         }
     }
-    // instance->changeTheme(); // 切换主题
     return instance;
 }
 
@@ -40,6 +48,7 @@ void QSSManager::updateWidget()
 void QSSManager::changeTheme()
 {
     m_isDark = !m_isDark;
+    m_cacheManager->changeCache("theme.json", "theme", m_isDark ? "dark" : "light");
     qDebug() << "qssmanager.cpp" << __LINE__ << "修改主题为:" << (m_isDark ? "暗色" : "亮色");
     updateWidget();
 }
