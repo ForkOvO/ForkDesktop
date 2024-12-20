@@ -70,6 +70,10 @@ void SearchBox::replyFinished(QNetworkReply *reply)
         reply->deleteLater();
         return;
     }
+
+    m_searchListWidget->clear(); // 清空搜索建议列表
+    m_searchListWidget->setGeometry(0, 50, 300, 50 * m_searchListWidget->count());
+    resize(300, 50 + 50 * m_searchListWidget->count());
     
     QString str = reply->readAll();
     qDebug() << "searchBox.cpp" << __LINE__ << "请求建议成功";
