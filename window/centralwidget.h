@@ -10,6 +10,7 @@ class FoldWindow; // 折叠窗口
 class QSSManager; // QSS管理器
 class Background; // 渐变背景
 class SearchBox; // 搜索框
+class Sidebar; // 侧边栏
 // Qt
 class QPushButton;
 
@@ -24,6 +25,7 @@ private:
     QSSManager* m_qssManager = nullptr; // QSS管理器
     Background* m_background = nullptr; // 背景
     SearchBox* m_searchBox = nullptr; // 搜索框
+    Sidebar* m_sidebar = nullptr; // 侧边栏
 
     QPushButton* m_foldSwitchBtn = nullptr; // 折叠开关
     QPushButton* m_themeSwitchBtn = nullptr; // 主题切换

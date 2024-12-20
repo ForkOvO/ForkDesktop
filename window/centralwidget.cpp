@@ -4,6 +4,7 @@
 #include "background.h"
 #include "searchbox.h"
 #include "notification.h"
+#include "sidebar.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -43,6 +44,11 @@ CentralWidget::CentralWidget(QWidget *parent)
     // 搜索框
     m_searchBox = new SearchBox(this);
     m_searchBox->move(width() - m_searchBox->width(), 0); // 右侧对齐
+
+    // 侧边栏
+    m_sidebar = new Sidebar(this);
+    m_sidebar->move(0, (height() - m_sidebar->height()) / 2); // 左侧居中
+    connect(m_sidebar, &Sidebar::btnClicked, this, [&](int index){ qDebug() << "侧边栏点击" << index; }); // 侧边栏按钮点击
 
     // 主题切换按钮
     m_themeSwitchBtn = new QPushButton(this);
