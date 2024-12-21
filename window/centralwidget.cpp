@@ -59,7 +59,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     m_githubBtn = new QPushButton(this);
     m_githubBtn->setObjectName("githubBtn");
     m_githubBtn->setFixedSize(25, 25);
-    connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://forkovo.github.io/")); }); // 打开github
+    connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://github.com/ForkOvO/ForkDesktop")); }); // 打开github仓库
     // bilibili按钮
     m_bilibiliBtn = new QPushButton(this);
     m_bilibiliBtn->setObjectName("bilibiliBtn");
