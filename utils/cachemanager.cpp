@@ -64,6 +64,8 @@ void CacheManager::changeCache(QString filename, QString key, QJsonValue value)
 
 QJsonValue CacheManager::getCache(QString filename, QString key)
 {
+    // 如果缓存不存在则加载缓存
+    if (!m_cacheMap.contains(filename)) loadCache(filename);
     return m_cacheMap[filename][key]; // 返回缓存值
 }
 
