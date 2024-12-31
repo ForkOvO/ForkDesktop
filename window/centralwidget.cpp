@@ -5,6 +5,7 @@
 #include "searchbox.h"
 #include "notification.h"
 #include "sidebar.h"
+#include "skinpage.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -48,7 +49,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     // 侧边栏
     m_sidebar = new Sidebar(this);
     m_sidebar->move(0, (height() - m_sidebar->height()) / 2); // 左侧居中
-    connect(m_sidebar, &Sidebar::btnClicked, this, [&](int index){ qDebug() << "侧边栏点击" << index; }); // 侧边栏按钮点击
+    connect(m_sidebar, &Sidebar::btnClicked, this, &CentralWidget::onPageIndexChanged); // 侧边栏按钮点击
 
     // 主题切换按钮
     m_themeSwitchBtn = new QPushButton(this);
@@ -81,4 +82,25 @@ CentralWidget::CentralWidget(QWidget *parent)
 
     // 启动欢迎通知
     Notification::showNotification("Fork桌面", "启动成功，欢迎使用！^_^", 5000, this, m_qssManager->theme());
+}
+
+void CentralWidget::onPageIndexChanged(int index)
+{
+    qDebug() << "centralwidget.cpp" << __LINE__ << "侧边栏点击" << index;
+
+    if (m_skinPage) m_skinPage->hide();
+
+    switch (index)
+    {
+    case 0:
+        break;
+    case 1: // 皮肤页面
+    {
+        if (!m_skinPage) m_skinPage = new SkinPage(this);
+        m_skinPage->move((width() - m_skinPage->width()) / 2, (height() - m_skinPage->height()) / 2); // 居中
+        m_skinPage->show();
+    }
+    default:
+        break;
+    }
 }

@@ -21,11 +21,13 @@ set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH}) # 可执行文件输出目录
 include_directories( # 头文件目录
     ${PROJECT_SOURCE_DIR}/window
     ${PROJECT_SOURCE_DIR}/utils
+    ${PROJECT_SOURCE_DIR}/pages
 )
 
 # 添加子目录
 add_subdirectory(window)
 add_subdirectory(utils)
+add_subdirectory(pages)
 
 set(PROJECT_SOURCES main.cpp ) # 项目源文件
 set(PROJECT_QRCS res.qrc qss.qrc) # 项目资源文件
@@ -45,6 +47,7 @@ target_link_libraries(
     # 自定义
     window
     utils
+    pages
 ) # 链接库
 
 # 设置目标属性

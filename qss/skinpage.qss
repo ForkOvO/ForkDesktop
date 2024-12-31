@@ -1,0 +1,3 @@
+SkinPage{
+    background-color: {{theme}};
+}
