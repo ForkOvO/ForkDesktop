@@ -13,16 +13,16 @@ class Background : public QWidget
 public:
     explicit Background(QWidget *parent = nullptr);
 
-    void setColor(QString topLeftDark, QString bottomRightDark, QString topLeftLight, QString bottomRightLight);
+    void setColor(QString leftDark, QString rightDark, QString leftLight, QString rightLight);
 
 private:
     QSSManager* m_qssManager = nullptr;
 
     QString m_qssTemplate; // qss模板
-    QString m_topLeftDark; // 左上角暗色
-    QString m_bottomRightDark; // 右下角暗色
-    QString m_topLeftLight; // 左上角亮色
-    QString m_bottomRightLight; // 右下角亮色
+    QString m_leftDark; // 左侧暗色
+    QString m_rightDark; // 右侧暗色
+    QString m_leftLight; // 左侧亮色
+    QString m_rightLight; // 右侧亮色
 };
 
 #endif // BACKGROUND_H
