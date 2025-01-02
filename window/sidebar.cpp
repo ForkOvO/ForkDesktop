@@ -44,19 +44,21 @@ Sidebar::Sidebar(QWidget *parent)
     }
 
     // QSS模板
-    m_qssManager = QSSManager::instance();
     QFile file(":/qss/sidebar.qss");
     file.open(QFile::ReadOnly);
-    QString qssTemplate(file.readAll());
+    QString qss(file.readAll());
     file.close();
+    QFile item_file(":/qss/sidebaritem.qss");
+    item_file.open(QFile::ReadOnly);
+    QString qssTemplate(item_file.readAll());
+    item_file.close();
     // 应用QSS
-    QString allQss;
-    allQss += "QWidget#sidebarBackground{ background-color:#80808080; border-radius: 10px; }";
     for (QString name: btnList)
     {
-        allQss += QString(qssTemplate).replace("{{name}}", name);
+        qss += QString(qssTemplate).replace("{{name}}", name);
     }
-    m_qssManager->input(this, QString(allQss).replace("{{theme}}", "white"), QString(allQss).replace("{{theme}}", "black"));
+    m_qssManager = QSSManager::instance();
+    m_qssManager->input(this, QString(qss).replace("{{theme}}", "white"), QString(qss).replace("{{theme}}", "black"));
 }
 
 void Sidebar::onBtnClicked(int index)
