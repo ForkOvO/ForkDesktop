@@ -1,3 +1,41 @@
-SkinPage{
-    background-color: {{theme}};
+SkinPage {
+    background-color: transparent;
+    border: 1px solid red;
+}
+
+QWidget#skinListBack,
+QScrollArea#skinArea {
+    border: 0px;
+    background-color: transparent;
+}
+
+QScrollBar {
+    background: transparent;
+    width: 11px;
+    margin: 10px 0px 10px 0px;
+    }
+
+QScrollBar::handle {
+    background: {{theme}};
+    border-radius: 3px;
+    margin: 0px 2px 0px 2px;
+}
+
+QScrollBar::handle:hover,
+QScrollBar::handle:pressed {
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::sub-line,
+QScrollBar::add-line {
+    background: {{theme}};
+    height: 10px;
+    border-radius: 5px;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-page,
+QScrollBar::add-page {
+    background: rgba(128, 128, 128, 128);
+    margin: 0px 4px 0px 4px;
 }

@@ -96,7 +96,7 @@ void CentralWidget::onPageIndexChanged(int index)
         break;
     case 1: // 皮肤页面
     {
-        if (!m_skinPage) m_skinPage = new SkinPage(this);
+        if (!m_skinPage) m_skinPage = new SkinPage(m_background, this);
         m_skinPage->move((width() - m_skinPage->width()) / 2, (height() - m_skinPage->height()) / 2); // 居中
         m_skinPage->show();
     }
