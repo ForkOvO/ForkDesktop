@@ -19,8 +19,18 @@ SkinPage::SkinPage(Background* background, QWidget *parent)
 
     // 背景颜色数据
     m_skinList = { // 左暗 右暗 左亮 右亮
+        {"#456EA6", "#8A5A91", "#B2D4FE", "#E8C5F5"},
+        {"#735C16", "#38323F", "#FFDF92", "#EFE5F9"},
+        {"#3F612F", "#4F3242", "#A8F688", "#FBFBF7"},
+        {"#4A4873", "#2A4129", "#DDD7FD", "#BDF9B2"},
+        {"#653E61", "#174241", "#FCC9F0", "#4DFCF3"},    
         {"#604962", "#0C1824", "#FFF3FF", "#D8EAFF"},
-        {"gray", "black", "white", "lightgray"},
+        {"#111111", "#111111", "#F2F2F2", "#F2F2F2"},
+        {"#628D9B", "#82AFC2", "#D0F3FF", "#FEFEFF"},
+        {"#E9A276", "#F68F64", "#EEC0A2", "#FFE9B3"},
+        {"#85707A", "#798967", "#FFDDEF", "#F4FEE7"},
+        {"#776E78", "#597171", "#F7CEC5", "#B4EAB2"},
+        {"#5EB57D", "#6A9377", "#82E8A3", "#B6FAB7"},
     };
  
     QVBoxLayout* skinLayout = new QVBoxLayout();
