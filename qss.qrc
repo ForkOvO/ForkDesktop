@@ -8,5 +8,6 @@
         <file>qss/sidebaritem.qss</file>
         <file>qss/skinpage.qss</file>
         <file>qss/skinpageitem.qss</file>
+        <file>qss/gamepage.qss</file>
     </qresource>
 </RCC>

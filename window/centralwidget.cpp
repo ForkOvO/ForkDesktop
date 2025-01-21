@@ -6,6 +6,7 @@
 #include "notification.h"
 #include "sidebar.h"
 #include "skinpage.h"
+#include "gamepage.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -88,17 +89,26 @@ void CentralWidget::onPageIndexChanged(int index)
 {
     qDebug() << "centralwidget.cpp" << __LINE__ << "侧边栏点击" << index;
 
+    if (m_gamePage) m_gamePage->hide();
     if (m_skinPage) m_skinPage->hide();
 
     switch (index)
     {
     case 0:
         break;
-    case 1: // 皮肤页面
+    case 1: // 游戏页面
+    {
+        if (!m_gamePage) m_gamePage = new GamePage(this);
+        m_gamePage->move((width() - m_gamePage->width()) / 2, (height() - m_gamePage->height()) / 2); // 居中
+        m_gamePage->show();
+        break;
+    }
+    case 2: // 皮肤页面
     {
         if (!m_skinPage) m_skinPage = new SkinPage(m_background, this);
         m_skinPage->move((width() - m_skinPage->width()) / 2, (height() - m_skinPage->height()) / 2); // 居中
         m_skinPage->show();
+        break;
     }
     default:
         break;

@@ -11,8 +11,8 @@ Sidebar::Sidebar(QWidget *parent)
 {
     setAttribute(Qt::WA_StyledBackground); // 启用qss
 
-    QStringList btnList = {"home", "skin"};
-    QStringList btnNameList = {"主页", "主题"};
+    QStringList btnList = {"home", "game", "skin"};
+    QStringList btnNameList = {"主页", "游戏", "主题"};
 
     resize(50, 50 * btnList.size());
 

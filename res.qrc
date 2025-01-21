@@ -15,5 +15,7 @@
         <file>res/skin_black.png</file>
         <file>res/home_white.png</file>
         <file>res/home_black.png</file>
+        <file>res/game_white.png</file>
+        <file>res/game_black.png</file>
     </qresource>
 </RCC>

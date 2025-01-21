@@ -12,6 +12,7 @@ class Background; // 渐变背景
 class SearchBox; // 搜索框
 class Sidebar; // 侧边栏
 class SkinPage; // 皮肤页面
+class GamePage; // 游戏页面
 // Qt
 class QPushButton;
 
@@ -31,6 +32,7 @@ private:
     SearchBox* m_searchBox = nullptr; // 搜索框
     Sidebar* m_sidebar = nullptr; // 侧边栏
     SkinPage* m_skinPage = nullptr; // 皮肤页面
+    GamePage* m_gamePage = nullptr; // 游戏页面
 
     QPushButton* m_foldSwitchBtn = nullptr; // 折叠开关
     QPushButton* m_themeSwitchBtn = nullptr; // 主题切换
