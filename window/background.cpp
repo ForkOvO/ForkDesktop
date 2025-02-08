@@ -9,16 +9,13 @@
 Background::Background(QWidget *parent)
     : QWidget(parent)
 {
-    // qss管理
-    m_qssManager = QSSManager::instance();
-
     setAttribute(Qt::WA_StyledBackground); // 启用qss
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry());
     
     // 加载qss
     QFile file(":/qss/background.qss");
     file.open(QFile::ReadOnly);
-    m_qssTemplate = file.readAll();
+    setqssTemplate(file.readAll());
     file.close();
 
     // 加载缓存
@@ -38,15 +35,16 @@ Background::Background(QWidget *parent)
 
 void Background::setColor(QString leftDark, QString rightDark, QString leftLight, QString rightLight)
 {
-    m_leftDark = leftDark;
-    m_rightDark = rightDark;
-    m_leftLight = leftLight;
-    m_rightLight = rightLight;
+    setleftDark(leftDark);
+    setrightDark(rightDark);
+    setleftLight(leftLight);
+    setrightLight(rightLight);
 
     // 更新qss
     QString darkQSS = m_qssTemplate.arg(m_leftDark).arg(m_rightDark);
     QString lightQSS = m_qssTemplate.arg(m_leftLight).arg(m_rightLight);
-    m_qssManager->input(this, darkQSS, lightQSS);
+    QSSManager* qssManager = QSSManager::instance();
+    qssManager->input(this, darkQSS, lightQSS);
 
     // 更新缓存
     QJsonObject obj;

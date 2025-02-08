@@ -4,6 +4,7 @@
 // 通知窗口
 
 #include <QWidget>
+#include "stdinit.h"
 
 class QSSManager;
 class QLabel;
@@ -13,6 +14,7 @@ class QTextEdit;
 class Notification : public QWidget
 {
     Q_OBJECT
+    STD_PROPERTY(QRect, screenRect) // 屏幕大小
 public:
     Notification(QString theme = "dark", QWidget *parent = nullptr);
     ~Notification();
@@ -24,12 +26,10 @@ public:
     void startDestroyTimer(int ms = 3000); // 启动销毁定时器
 
 private:
-    QRect m_screenRect; // 屏幕大小
-    
-    QLabel* m_title; // 标题
-    QTextEdit* m_content; // 内容
-    QPushButton* m_closeBtn; // 关闭按钮
-    QTimer* m_destroyTimer; // 销毁定时器
+    QLabel* m_title = nullptr; // 标题
+    QTextEdit* m_content = nullptr; // 内容
+    QPushButton* m_closeBtn = nullptr; // 关闭按钮
+    QTimer* m_destroyTimer = nullptr; // 销毁定时器
 };
 
 #endif // NOTIFICATION_H

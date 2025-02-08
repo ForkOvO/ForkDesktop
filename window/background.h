@@ -4,25 +4,22 @@
 // 渐变背景
 
 #include <QWidget>
+#include "stdinit.h"
 
 class QSSManager;
 
 class Background : public QWidget
 {
     Q_OBJECT
+    STD_PROPERTY(QString, qssTemplate) // qss模板
+    STD_PROPERTY(QString, leftDark) // 左侧暗色
+    STD_PROPERTY(QString, rightDark) // 右侧暗色
+    STD_PROPERTY(QString, leftLight) // 左侧亮色
+    STD_PROPERTY(QString, rightLight) // 右侧亮色
 public:
     explicit Background(QWidget *parent = nullptr);
 
     void setColor(QString leftDark, QString rightDark, QString leftLight, QString rightLight);
-
-private:
-    QSSManager* m_qssManager = nullptr;
-
-    QString m_qssTemplate; // qss模板
-    QString m_leftDark; // 左侧暗色
-    QString m_rightDark; // 右侧暗色
-    QString m_leftLight; // 左侧亮色
-    QString m_rightLight; // 右侧亮色
 };
 
 #endif // BACKGROUND_H

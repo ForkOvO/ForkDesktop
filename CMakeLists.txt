@@ -19,12 +19,14 @@ find_package(Qt6 REQUIRED COMPONENTS # 查找Qt6库
 set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH}) # 可执行文件输出目录
 
 include_directories( # 头文件目录
+    ${PROJECT_SOURCE_DIR}/public
     ${PROJECT_SOURCE_DIR}/window
     ${PROJECT_SOURCE_DIR}/utils
     ${PROJECT_SOURCE_DIR}/pages
 )
 
 # 添加子目录
+add_subdirectory(public)
 add_subdirectory(window)
 add_subdirectory(utils)
 add_subdirectory(pages)
@@ -45,6 +47,7 @@ target_link_libraries(
     # QT
     Qt6::Widgets
     # 自定义
+    public
     window
     utils
     pages

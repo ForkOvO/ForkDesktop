@@ -4,16 +4,18 @@
 // 折叠窗口
 
 #include <QWidget>
+#include "stdinit.h"
 
-// 自定义
-class TrayIcon;
 class CentralWidget;
-// Qt
 class QPropertyAnimation;
 
 class FoldWindow : public QWidget
 {
     Q_OBJECT
+    STD_PROPERTY_INIT(bool, isFold, false) // 是否折叠
+    STD_PROPERTY(QRect, foldRect) // 折叠窗口的位置和大小
+    STD_PROPERTY(QRect, fullRect) // 全屏窗口的位置和大小
+    STD_PROPERTY(QPoint, startPos) // 鼠标按下时的位置
 public:
     explicit FoldWindow(QWidget *parent = nullptr);
 
@@ -25,14 +27,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
-    bool m_isFold = false; // 是否折叠
-    QRect m_foldRect; // 折叠窗口的位置和大小
-    QRect m_fullRect; // 全屏窗口的位置和大小
-    QPoint m_startPos; // 鼠标按下时的位置
-
-    TrayIcon* m_trayIcon; // 系统托盘
-    CentralWidget* m_centralWidget; // 主窗口
-    QPropertyAnimation* m_foldAnimation; // 折叠窗口动画
+    CentralWidget* m_centralWidget = nullptr; // 主窗口
+    QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画
 };
 
 #endif // FOLDWINDOW_H

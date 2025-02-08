@@ -16,8 +16,8 @@ Notification::Notification(QString theme, QWidget *parent)
 {
     qDebug() << "notification.cpp" << __LINE__ << "通知窗口创建";
 
-    if (parent) m_screenRect = parent->geometry(); // 获取父窗口大小
-    else m_screenRect = QGuiApplication::primaryScreen()->availableGeometry(); // 获取屏幕大小
+    if (parent) setscreenRect(parent->geometry()); // 获取父窗口大小
+    else setscreenRect(QGuiApplication::primaryScreen()->availableGeometry()); // 获取屏幕大小
 
     setAttribute(Qt::WA_StyledBackground); // 启用qss
     setGeometry(m_screenRect.width() - 350, m_screenRect.height() - 150, 300, 100); // 设置窗口位置和大小
