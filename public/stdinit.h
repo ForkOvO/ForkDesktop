@@ -1,6 +1,9 @@
 #ifndef STDPROPERTY_H
 #define STDPROPERTY_H
 
+// 定义DEBUG输出宏
+#define STD_DEBUG(FILE) qDebug() << #FILE << __LINE__
+
 // 定义标准属性
 #define STD_PROPERTY(TYPE, NAME) \
     Q_PROPERTY(TYPE m_##NAME READ NAME WRITE set##NAME NOTIFY NAME##Changed) \
