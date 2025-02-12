@@ -56,7 +56,20 @@ CentralWidget::CentralWidget(QWidget *parent)
     m_themeSwitchBtn = new QPushButton(this);
     m_themeSwitchBtn->setObjectName("themeSwitchBtn");
     m_themeSwitchBtn->setFixedSize(50, 50);
-    connect(m_themeSwitchBtn, &QPushButton::clicked, m_qssManager, &QSSManager::changeTheme); // 主题切换
+    // connect(m_themeSwitchBtn, &QPushButton::clicked, m_qssManager, &QSSManager::changeTheme); // 主题切换
+    connect(m_themeSwitchBtn, &QPushButton::clicked, this, [&](){
+        PublicCache *cache = PublicCache::instance();
+        QString theme = cache->get("theme").toString();
+        if (theme == "dark")
+        {
+            cache->set("theme", "white");
+        }
+        else
+        {
+            cache->set("theme", "dark");
+        }
+    }); // 主题切换
+
     // github按钮
     m_githubBtn = new QPushButton(this);
     m_githubBtn->setObjectName("githubBtn");

@@ -1,36 +1,27 @@
 #include "background.h"
-#include "qssmanager.h"
-#include "cachemanager.h"
+#include "publiccache.h"
 
 #include <QFile>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QPainter>
+#include <QGradient>
 
 Background::Background(QWidget *parent)
     : QWidget(parent)
 {
-    setAttribute(Qt::WA_StyledBackground); // 启用qss
-    setGeometry(QGuiApplication::primaryScreen()->availableGeometry());
-    
-    // 加载qss
-    QFile file(":/qss/background.qss");
-    file.open(QFile::ReadOnly);
-    setqssTemplate(file.readAll());
-    file.close();
-
-    // 加载缓存
-    CacheManager* cacheManager = CacheManager::instance();
-    cacheManager->loadCache("theme.json");
-    QJsonValue colors = cacheManager->getCache("theme.json", "backColor");
-    if (colors.isNull()) // 默认主题
+    setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 设置背景大小
+    PublicCache *cache = PublicCache::instance();
+    cache->addWidget(this);
+    QJsonObject backColor = cache->get("backColor").toObject();
+    if (!backColor.isEmpty())
     {
-        setColor("#604962", "#0C1824", "#FFF3FF", "#D8EAFF");
+        setleftDark(backColor.value("leftDark").toString());
+        setrightDark(backColor.value("rightDark").toString());
+        setleftLight(backColor.value("leftLight").toString());
+        setrightLight(backColor.value("rightLight").toString());
     }
-    else // 加载缓存主题
-    {
-        QJsonObject obj = colors.toObject();
-        setColor(obj["leftDark"].toString(), obj["rightDark"].toString(), obj["leftLight"].toString(), obj["rightLight"].toString());
-    }
+    update();
 }
 
 void Background::setColor(QString leftDark, QString rightDark, QString leftLight, QString rightLight)
@@ -39,20 +30,26 @@ void Background::setColor(QString leftDark, QString rightDark, QString leftLight
     setrightDark(rightDark);
     setleftLight(leftLight);
     setrightLight(rightLight);
+    update();
+}
 
-    // 更新qss
-    QString darkQSS = m_qssTemplate.arg(m_leftDark).arg(m_rightDark);
-    QString lightQSS = m_qssTemplate.arg(m_leftLight).arg(m_rightLight);
-    QSSManager* qssManager = QSSManager::instance();
-    qssManager->input(this, darkQSS, lightQSS);
-
-    // 更新缓存
-    QJsonObject obj;
-    obj.insert("leftDark", m_leftDark);
-    obj.insert("rightDark", m_rightDark);
-    obj.insert("leftLight", m_leftLight);
-    obj.insert("rightLight", m_rightLight);
-    CacheManager* cacheManager = CacheManager::instance();
-    cacheManager->loadCache("theme.json");
-    cacheManager->changeCache("theme.json", "backColor", obj);
+void Background::paintEvent(QPaintEvent *event)
+{
+    QLinearGradient gradient(0, height(), width(), 0); // 从左下角到右上角
+    PublicCache *cache = PublicCache::instance();
+    if (cache->get("theme").toString() == "dark")
+    {
+        gradient.setColorAt(0, QColor(m_leftDark));
+        gradient.setColorAt(1, QColor(m_rightDark));
+    }
+    else
+    {
+        gradient.setColorAt(0, QColor(m_leftLight));
+        gradient.setColorAt(1, QColor(m_rightLight));
+    }
+    QPainter painter(this);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(gradient);
+    painter.drawRect(rect());
+    QWidget::paintEvent(event);
 }
