@@ -1,6 +1,5 @@
 #include "centralwidget.h"
 #include "foldwindow.h"
-#include "qssmanager.h"
 #include "background.h"
 #include "searchbox.h"
 #include "notification.h"
@@ -8,6 +7,7 @@
 #include "skinpage.h"
 #include "gamepage.h"
 #include "publiccache.h"
+#include "themebutton.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -27,21 +27,12 @@ CentralWidget::CentralWidget(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground); // 透明背景
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 屏幕大小
 
-    // QSS管理器
-    m_qssManager = QSSManager::instance();
-    QFile file(":/qss/centralwidget.qss");
-    file.open(QFile::ReadOnly);
-    QString qss(file.readAll());
-    file.close();
-    m_qssManager->input(this, QString(qss).replace("{{theme}}", "white"), QString(qss).replace("{{theme}}", "black"));
-
     // 背景
     m_background = new Background(this);
 
     // 折叠开关按钮
-    m_foldSwitchBtn = new QPushButton(this);
-    m_foldSwitchBtn->setObjectName("foldSwitchBtn");
-    m_foldSwitchBtn->setGeometry(0, 0, 50, 50);
+    m_foldSwitchBtn = new ThemeButton(this);
+    m_foldSwitchBtn->move(0, 0);
     connect(m_foldSwitchBtn, &QPushButton::clicked, m_parent, &FoldWindow::changeFoldStatus); // 折叠切换
 
     // 搜索框
@@ -54,32 +45,18 @@ CentralWidget::CentralWidget(QWidget *parent)
     connect(m_sidebar, &Sidebar::btnClicked, this, &CentralWidget::onPageIndexChanged); // 侧边栏按钮点击
 
     // 主题切换按钮
-    m_themeSwitchBtn = new QPushButton(this);
-    m_themeSwitchBtn->setObjectName("themeSwitchBtn");
-    m_themeSwitchBtn->setFixedSize(50, 50);
-    // connect(m_themeSwitchBtn, &QPushButton::clicked, m_qssManager, &QSSManager::changeTheme); // 主题切换
+    m_themeSwitchBtn = new ThemeButton(this, "theme");
     connect(m_themeSwitchBtn, &QPushButton::clicked, this, [&](){
         PublicCache *cache = PublicCache::instance();
-        QString theme = cache->get("theme").toString();
-        if (theme == "dark")
-        {
-            cache->set("theme", "white");
-        }
-        else
-        {
-            cache->set("theme", "dark");
-        }
+        if (cache->get("theme").toString() == "dark") cache->set("theme", "white");
+        else cache->set("theme", "dark");
     }); // 主题切换
 
     // github按钮
-    m_githubBtn = new QPushButton(this);
-    m_githubBtn->setObjectName("githubBtn");
-    m_githubBtn->setFixedSize(25, 25);
+    m_githubBtn = new ThemeButton(this, "github", 25);
     connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://github.com/ForkOvO/ForkDesktop")); }); // 打开github仓库
     // bilibili按钮
-    m_bilibiliBtn = new QPushButton(this);
-    m_bilibiliBtn->setObjectName("bilibiliBtn");
-    m_bilibiliBtn->setFixedSize(25, 25);
+    m_bilibiliBtn = new ThemeButton(this, "bilibili", 25);
     connect(m_bilibiliBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://space.bilibili.com/387426555")); }); // 打开bilibili
 
     // 布局

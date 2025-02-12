@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qss/centralwidget.qss</file>
         <file>qss/searchbox.qss</file>
         <file>qss/sidebar.qss</file>
         <file>qss/sidebaritem.qss</file>
