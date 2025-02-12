@@ -16,17 +16,23 @@
 Notification::Notification(QWidget *parent)
     : QWidget(parent)
 {
-    qDebug() << "notification.cpp" << __LINE__ << "通知窗口创建";
+    STD_DEBUG(Notification.cpp) << "created";
 
     setscreenRect(parent->geometry()); // 获取父窗口大小
     setGeometry(m_screenRect.width() - 350, m_screenRect.height() - 150, 300, 100); // 设置窗口位置和大小
+
+    PublicCache *cache = PublicCache::instance();
+    cache->addWidget(this);
 
     update();
 }
 
 Notification::~Notification()
 {
-    qDebug() << "notification.cpp" << __LINE__ << "通知窗口关闭";
+    STD_DEBUG(Notification.cpp) << "destroyed";
+
+    PublicCache *cache = PublicCache::instance();
+    cache->removeWidget(this);
 
     m_destroyTimer->stop();
     m_destroyTimer->deleteLater();

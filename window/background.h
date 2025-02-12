@@ -16,6 +16,7 @@ class Background : public QWidget
 
 public:
     explicit Background(QWidget *parent = nullptr);
+    ~Background();
 
     void setColor(QString leftDark, QString rightDark, QString leftLight, QString rightLight);
 
