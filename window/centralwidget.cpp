@@ -7,6 +7,7 @@
 #include "sidebar.h"
 #include "skinpage.h"
 #include "gamepage.h"
+#include "publiccache.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -95,7 +96,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
 
     // 启动欢迎通知
-    Notification::showNotification("Fork桌面", "启动成功，欢迎使用！^_^", 5000, this, m_qssManager->theme());
+    Notification::showNotification(this);
 }
 
 void CentralWidget::onPageIndexChanged(int index)

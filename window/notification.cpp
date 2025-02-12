@@ -1,5 +1,6 @@
 #include "notification.h"
 #include "centralwidget.h"
+#include "publiccache.h"
 
 #include <QFile>
 #include <QGuiApplication>
@@ -10,59 +11,17 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QTimer>
+#include <QPainter>
 
-Notification::Notification(QString theme, QWidget *parent)
+Notification::Notification(QWidget *parent)
     : QWidget(parent)
 {
     qDebug() << "notification.cpp" << __LINE__ << "通知窗口创建";
 
-    if (parent) setscreenRect(parent->geometry()); // 获取父窗口大小
-    else setscreenRect(QGuiApplication::primaryScreen()->availableGeometry()); // 获取屏幕大小
-
-    setAttribute(Qt::WA_StyledBackground); // 启用qss
+    setscreenRect(parent->geometry()); // 获取父窗口大小
     setGeometry(m_screenRect.width() - 350, m_screenRect.height() - 150, 300, 100); // 设置窗口位置和大小
 
-    // 标题
-    m_title = new QLabel();
-    m_title->setObjectName("title");
-
-    // 关闭按钮
-    m_closeBtn = new QPushButton("X");
-    m_closeBtn->setObjectName("closeBtn");
-    m_closeBtn->setFixedSize(20, 20);
-    connect(m_closeBtn, &QPushButton::clicked, this, &Notification::deleteLater);
-
-    // 内容
-    m_content = new QTextEdit();
-    m_content->setObjectName("content");
-    m_content->setReadOnly(true);
-
-    // 布局
-    QHBoxLayout *titleLayout = new QHBoxLayout;
-    titleLayout->addWidget(m_title);
-    titleLayout->addWidget(m_closeBtn);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addLayout(titleLayout);
-    mainLayout->addWidget(m_content);
-
-    // 加载qss
-    QFile file(":/qss/notification.qss");
-    file.open(QFile::ReadOnly);
-    QString qss = file.readAll();
-    file.close();
-
-    if (theme == "dark") // 深色模式
-    {
-        qss.replace("{{back_color}}", "#202020");
-        qss.replace("{{content_color}}", "#808080");
-    }
-    else // 浅色模式
-    {
-        qss.replace("{{back_color}}", "#EFEFEF");
-        qss.replace("{{content_color}}", "#202020");
-    }
-    setStyleSheet(qss);
+    update();
 }
 
 Notification::~Notification()
@@ -73,19 +32,13 @@ Notification::~Notification()
     m_destroyTimer->deleteLater();
 }
 
-void Notification::showNotification(QString title, QString content, int ms, QWidget *parent, QString theme)
+void Notification::showNotification(QWidget *parent, QString content, int ms)
 {
-    Notification *notification = new Notification(theme, parent);
-    notification->setText(title, content);
+    Notification *notification = new Notification(parent);
+    notification->setcontent(content);
     notification->show();
     if (ms <= 0) return;
     notification->startDestroyTimer(ms);
-}
-
-void Notification::setText(QString title, QString content)
-{
-    m_title->setText(title);
-    m_content->setText(content);
 }
 
 void Notification::startDestroyTimer(int ms)
@@ -94,4 +47,38 @@ void Notification::startDestroyTimer(int ms)
     m_destroyTimer = new QTimer(this);
     connect(m_destroyTimer, &QTimer::timeout, this, &Notification::deleteLater);
     m_destroyTimer->start(ms);
+}
+
+void Notification::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing); // 抗锯齿
+    // 字体
+    QFont font("Microsoft YaHei", 15);
+    painter.setFont(font);
+    // 画笔
+    QPen pen;
+    pen.setWidth(1);
+    PublicCache* cache = PublicCache::instance();
+    if (cache->get("theme").toString() == "dark")
+    {
+        pen.setColor(QColor("#808080"));
+        painter.setPen(pen);
+        painter.setBrush(QColor("#202020"));
+    }
+    else
+    {
+        pen.setColor(QColor("#202020"));
+        painter.setPen(pen);
+        painter.setBrush(QColor("#EFEFEF"));
+    }
+    painter.drawRoundedRect(rect(), 5, 5); // 圆角矩形
+    painter.drawText(rect(), Qt::AlignCenter, m_content); // 文字
+    QWidget::paintEvent(event);
+}
+
+void Notification::mousePressEvent(QMouseEvent *event)
+{
+    m_destroyTimer->stop();
+    deleteLater();
 }

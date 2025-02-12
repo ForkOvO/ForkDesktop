@@ -15,20 +15,21 @@ class Notification : public QWidget
 {
     Q_OBJECT
     STD_PROPERTY(QRect, screenRect) // 屏幕大小
+    STD_PROPERTY_INIT(QString, content, "欢迎使用Fork桌面^_^") // 内容
 public:
-    Notification(QString theme = "dark", QWidget *parent = nullptr);
+    Notification(QWidget *parent);
     ~Notification();
 
     // 显示通知 (默认暗色 3秒后自动销毁)
-    static void showNotification(QString title = "Fork桌面", QString content = "", int ms = 3000, QWidget *parent = nullptr, QString theme = "dark");
+    static void showNotification(QWidget *parent, QString content = "欢迎使用Fork桌面^_^", int ms = 3000);
 
-    void setText(QString title = "", QString content = ""); // 设置标题和内容
     void startDestroyTimer(int ms = 3000); // 启动销毁定时器
 
+protected:
+    void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+
 private:
-    QLabel* m_title = nullptr; // 标题
-    QTextEdit* m_content = nullptr; // 内容
-    QPushButton* m_closeBtn = nullptr; // 关闭按钮
     QTimer* m_destroyTimer = nullptr; // 销毁定时器
 };
 
