@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qss/searchbox.qss</file>
-        <file>qss/sidebar.qss</file>
-        <file>qss/sidebaritem.qss</file>
         <file>qss/skinpage.qss</file>
         <file>qss/skinpageitem.qss</file>
         <file>qss/gamepage.qss</file>

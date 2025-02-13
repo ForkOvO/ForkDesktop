@@ -23,7 +23,6 @@ CentralWidget::CentralWidget(QWidget *parent)
 {
     m_parent = static_cast<FoldWindow*>(parent); // 折叠窗口
 
-    setAttribute(Qt::WA_StyledBackground); // 启用qss
     setAttribute(Qt::WA_TranslucentBackground); // 透明背景
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 屏幕大小
 
@@ -78,7 +77,7 @@ CentralWidget::CentralWidget(QWidget *parent)
 
 void CentralWidget::onPageIndexChanged(int index)
 {
-    qDebug() << "centralwidget.cpp" << __LINE__ << "侧边栏点击" << index;
+    STD_DEBUG(CentralWidget.cpp) << "sidebar clicked" << index;
 
     if (m_gamePage) m_gamePage->hide();
     if (m_skinPage) m_skinPage->hide();

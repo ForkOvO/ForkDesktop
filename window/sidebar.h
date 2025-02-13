@@ -3,16 +3,17 @@
 
 // 侧边栏
 
+#include "stdinit.h"
 #include <QWidget>
 
-// Qt
 class QPropertyAnimation;
-// 自定义
-class QSSManager;
 
 class Sidebar : public QWidget
 {
     Q_OBJECT
+    STD_PROPERTY(QStringList, btnNameList)
+    STD_PROPERTY(QStringList, btnDescList)
+    STD_PROPERTY_INIT(int, currBackPos, 0)
 public:
     explicit Sidebar(QWidget *parent = nullptr);
 
@@ -25,12 +26,11 @@ private slots:
 protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
-    QPropertyAnimation* m_foldAnimation; // 折叠动画
-    QPropertyAnimation* m_clickAnimation; // 点击动画
-    QSSManager* m_qssManager; // QSS管理器
-    QWidget* m_background; // 背景
+    QPropertyAnimation* m_foldAnimation = nullptr; // 折叠动画
+    QPropertyAnimation* m_clickAnimation = nullptr; // 点击动画
 };
 
 #endif // SIDEBAR_H

@@ -1,4 +1,0 @@
-QWidget#sidebarBackground {
-    background-color:#80808080;
-    border-radius: 10px;
-}
